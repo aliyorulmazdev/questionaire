@@ -1,18 +1,22 @@
-"use client"
+"use client";
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import Image from "next/image";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import React, { useState } from "react";
 import CongratulationsModal from "./CongratulationsModal";
 import IncorrectAnswerModal from "./IncorrectAnswerModal";
+import questionAnimation from "@/public/question.json";
+import Lottie from "lottie-react";
 
 export function TrueFalse({ question, imageSrc, category, answer }) {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
-  const [showCongratulationsModal, setShowCongratulationsModal] = useState(false);
-  const [showIncorrectAnswerModal, setShowIncorrectAnswerModal] = useState(false);
+  const [showCongratulationsModal, setShowCongratulationsModal] =
+    useState(false);
+  const [showIncorrectAnswerModal, setShowIncorrectAnswerModal] =
+    useState(false);
 
   const handleAnswerClick = (selected) => {
     setSelectedAnswer(selected);
@@ -35,40 +39,28 @@ export function TrueFalse({ question, imageSrc, category, answer }) {
 
   return (
     <>
-      <Card className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl m-4">
+      <Card className="max-w-md mx-auto bg-gradient-to-br from-pink-500 via-purple-500 to-blue-500 rounded-xl shadow-md overflow-hidden md:max-w-2xl m-4">
         <div className="md:flex">
           <div className="md:flex-shrink-0">
-            <Image
-              alt="A funny image for kids"
-              className="h-48 w-full object-cover md:w-48"
-              height="192"
-              src={imageSrc}
-              style={{
-                aspectRatio: "192/192",
-                objectFit: "cover",
-              }}
-              width="192"
-            />
+            <div className="mx-auto mb-6 flex justify-center">
+              <Lottie
+                animationData={questionAnimation}
+                loop
+                autoplay
+                style={{ height: 250, width: 250 }}
+              />
+            </div>
           </div>
           <div className="p-8">
-            <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">
-              {category}
-            </div>
-            <a
-              className="block mt-1 text-lg leading-tight font-medium text-black hover:underline"
-              href="#"
-            >
+            <div className="block mt-1 text-3xl leading-tight font-cherry text-white">
               {question}
-            </a>
-            <p className="mt-2 text-gray-500">
-              {/* Add any additional information about the question here */}
-            </p>
+            </div>
           </div>
         </div>
         <div className="p-4 border-t border-gray-200 flex justify-between items-center">
           <div>
             <Button
-              className={`mr-4 ${selectedAnswer === true ? 'bg-green-500' : ''}`}
+              className='font-cherry mr-4 bg-white text-black'
               variant="default"
               onClick={() => handleAnswerClick(true)}
               disabled={selectedAnswer !== null}
@@ -76,7 +68,9 @@ export function TrueFalse({ question, imageSrc, category, answer }) {
               True
             </Button>
             <Button
-              className={`mr-4 ${selectedAnswer === false ? 'bg-red-500' : ''}`}
+              className={`font-cherry mr-4 ${
+                selectedAnswer === false ? "bg-green-500" : ""
+              }`}
               variant="default"
               onClick={() => handleAnswerClick(false)}
               disabled={selectedAnswer !== null}
@@ -85,7 +79,9 @@ export function TrueFalse({ question, imageSrc, category, answer }) {
             </Button>
           </div>
           <div className="relative hover:cursor-pointer group">
-            <Badge className="bg-indigo-600 text-white">New</Badge>
+            <Badge className="bg-black text-white font-cherry">
+              {category} Sorusu
+            </Badge>
           </div>
           <Button className="ml-4" variant="default">
             <ShareIcon className="w-4 h-4" />
@@ -98,7 +94,10 @@ export function TrueFalse({ question, imageSrc, category, answer }) {
       )}
 
       {showIncorrectAnswerModal && (
-        <IncorrectAnswerModal correctAnswer={answer ? 'Doğru' : 'Yanlış'} closeModal={closeModal} />
+        <IncorrectAnswerModal
+          correctAnswer={answer ? "Doğru" : "Yanlış"}
+          closeModal={closeModal}
+        />
       )}
     </>
   );

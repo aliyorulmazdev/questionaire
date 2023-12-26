@@ -1,7 +1,24 @@
-import { Inter } from 'next/font/google'
 import './globals.css'
+import { Open_Sans, Roboto_Mono, Cherry_Bomb_One } from 'next/font/google'
 
-const inter = Inter({ subsets: ['latin'] })
+const openSans = Open_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-opensans',
+})
+
+const robotoMono = Roboto_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-roboto-mono',
+})
+
+const cherryBombOne = Cherry_Bomb_One({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-cherry-bomb-one',
+  weight: '400'
+})
 
 export const metadata = {
   title: 'Create Next App',
@@ -10,8 +27,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html
+      lang="en"
+      className={`${openSans.variable} ${robotoMono.variable} ${cherryBombOne.variable} font-sans`}
+    >
+      <body>{children}</body>
     </html>
   )
 }
